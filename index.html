@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GSBTrader PRO</title>
+  <style>
+    body {
+      background: #0f172a;
+      color: white;
+      font-family: Arial;
+      text-align: center;
+    }
+    .card {
+      background: #1e293b;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 10px;
+    }
+    button {
+      background: #22c55e;
+      border: none;
+      padding: 10px;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>📊 GSBTrader PRO</h1>
+
+<div class="card">
+  <h3>Login</h3>
+  <input id="user" placeholder="Usuário"><br><br>
+  <input id="pass" type="password" placeholder="Senha"><br><br>
+  <button onclick="login()">Entrar</button>
+</div>
+
+<div id="app" style="display:none;">
+  <div class="card">
+    <h3>Sinais em tempo real</h3>
+    <ul id="sinais"></ul>
+  </div>
+</div>
+
+<script>
+let token = "";
+
+function login(){
+  fetch("https://gsbtrader-backend.onrender.com/login", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      username: user.value,
+      password: pass.value
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    token = data.token;
+    document.getElementById("app").style.display = "block";
+    carregar();
+  });
+}
+
+function carregar(){
+  fetch("https://gsbtrader-backend.onrender.com/sinais", {
+    headers: { "Authorization": token }
+  })
+  .then(res => res.json())
+  .then(data => {
+    const lista = document.getElementById("sinais");
+    lista.innerHTML = "";
+
+    data.forEach(s => {
+      const li = document.createElement("li");
+      li.innerText = `${s.par} - ${s.sinal}`;
+      lista.appendChild(li);
+    });
+  });
+}
+</script>
+
+</body>
+</html>
