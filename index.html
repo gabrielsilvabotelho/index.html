@@ -36,7 +36,65 @@
   <button onclick="login()">Entrar</button>
 </div>
 
-<div id="app" style="display:none;"><div class="card"><div class="card">
+<div id="app" style="display:none;">
+
+  <div style="display:flex; height:100vh;">
+
+    <!-- MENU LATERAL -->
+    <div style="width:250px; background:#020617; padding:20px;">
+      <h2>GSBTrader</h2>
+
+      <div style="margin:20px 0;">
+        <img src="https://via.placeholder.com/80" style="border-radius:50%;">
+        <p>Gabriel</p>
+      </div>
+
+      <p>📊 Dashboard</p>
+      <p>📈 Gráfico</p>
+      <p>📡 Sinais</p>
+      <p>📚 Estratégias</p>
+    </div>
+
+    <!-- CONTEÚDO -->
+    <div style="flex:1; padding:20px;">
+
+      <h2>Painel</h2>
+
+      <!-- GRÁFICO -->
+      <div class="card">
+        <h3>Gráfico ao vivo</h3>
+
+        <select id="par" onchange="trocarPar()">
+          <option value="FX:EURUSD">EUR/USD</option>
+          <option value="FX:GBPUSD">GBP/USD</option>
+          <option value="FX:USDJPY">USD/JPY</option>
+          <option value="FX:AUDCAD">AUD/CAD</option>
+        </select>
+
+        <br><br>
+
+        <div>
+          <button onclick="trocarTempo('1')">M1</button>
+          <button onclick="trocarTempo('5')">M5</button>
+          <button onclick="trocarTempo('15')">M15</button>
+        </div>
+
+        <br>
+
+        <div id="tradingview_chart"></div>
+      </div>
+
+      <!-- SINAIS -->
+      <div class="card">
+        <h3>Sinais ao vivo</h3>
+        <ul id="sinais"></ul>
+      </div>
+
+    </div>
+
+  </div>
+
+</div> style="display:none;"><div class="card"><div class="card">
   <h3>Gráfico ao vivo</h3>
 
   <select id="par" onchange="trocarPar()">
