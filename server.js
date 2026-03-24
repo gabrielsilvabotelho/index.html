@@ -2,8 +2,10 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
-app.use(express.json());
+
+// LIBERA TUDO (CORS)
 app.use(cors());
+app.use(express.json());
 
 // LOGIN
 app.post("/login", (req, res) => {
@@ -16,7 +18,7 @@ app.post("/login", (req, res) => {
   return res.status(401).json({ error: "Login inválido" });
 });
 
-// SINAIS
+// SINAIS (SEM BLOQUEIO)
 app.get("/sinais", (req, res) => {
   const sinais = [
     { par: "EUR/USD", sinal: "COMPRA" },
@@ -27,6 +29,9 @@ app.get("/sinais", (req, res) => {
   res.json(sinais);
 });
 
-app.listen(3000, () => {
-  console.log("Servidor rodando");
+// PORTA CORRETA (IMPORTANTE)
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log("Servidor rodando na porta " + PORT);
 });
