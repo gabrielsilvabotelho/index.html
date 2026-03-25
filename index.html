@@ -236,4 +236,204 @@ function trocarTempo(tempo){
 window.onload = () => {
   carregarGrafico();
 };
+</script><!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GSBTrader - Plataforma</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #121212;
+        color: #fff;
+    }
+
+    /* Header */
+    #header {
+        background-color: #1f1f1f;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    #header img {
+        width: 40px;
+        border-radius: 50%;
+    }
+    #header span {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    /* Layout principal */
+    #container {
+        display: flex;
+        height: calc(100vh - 60px);
+    }
+
+    /* Menu lateral */
+    #sidebar {
+        width: 220px;
+        background-color: #1b1b1b;
+        padding: 10px;
+        overflow-y: auto;
+    }
+    #sidebar h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 16px;
+        text-align: center;
+    }
+    .btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 5px;
+        background-color: #2c2c2c;
+        border: none;
+        color: #fff;
+        text-align: left;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: 0.2s;
+    }
+    .btn:hover {
+        background-color: #3d3d3d;
+    }
+
+    /* Painel central */
+    #main {
+        flex: 1;
+        background-color: #0d0d0d;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+    }
+    #main h2 {
+        margin-bottom: 20px;
+    }
+    #chart {
+        width: 100%;
+        height: 500px;
+        background-color: #1a1a1a;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #aaa;
+        font-size: 18px;
+    }
+
+    /* Tela de login */
+    #login-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(18,18,18,0.95);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #login-screen input {
+        padding: 10px;
+        margin: 5px 0;
+        width: 250px;
+        border-radius: 4px;
+        border: none;
+    }
+    #login-screen button {
+        padding: 10px 20px;
+        margin-top: 10px;
+        border: none;
+        background-color: #2c2c2c;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+    #login-screen button:hover {
+        background-color: #3d3d3d;
+    }
+
+</style>
+</head>
+<body>
+
+<!-- Login -->
+<div id="login-screen">
+    <h2>Login GSBTrader</h2>
+    <input type="text" id="username" placeholder="Usuário">
+    <input type="password" id="password" placeholder="Senha">
+    <button onclick="login()">Entrar</button>
+</div>
+
+<!-- Header -->
+<div id="header" style="display:none;">
+    <span id="user-display"></span>
+    <img src="https://via.placeholder.com/40" alt="Foto do usuário">
+</div>
+
+<!-- Layout principal -->
+<div id="container" style="display:none;">
+    <!-- Menu lateral -->
+    <div id="sidebar">
+        <h3>Países/Índices</h3>
+    </div>
+
+    <!-- Painel central -->
+    <div id="main">
+        <h2>Bem-vindo ao GSBTrader</h2>
+        <div id="chart">Selecione um par ou índice para ver o gráfico</div>
+    </div>
+</div>
+
+<script>
+    // Lista de pares Forex + WINJ26
+    const pairs = [
+        "EUR/USD","GBP/USD","USD/JPY","AUD/CAD","AUD/CHF","AUD/JPY","AUD/NZD","AUD/USD",
+        "CAD/CHF","CAD/JPY","CHF/JPY","EUR/AUD","EUR/CAD","EUR/CHF","EUR/GBP","EUR/JPY",
+        "EUR/NZD","GBP/AUD","GBP/CAD","GBP/CHF","GBP/JPY","GBP/NZD","NZD/CAD","NZD/CHF",
+        "NZD/JPY","NZD/USD","USD/CNH","USD/CAD","USD/CHF","USD/SGD","USD/TRY","USD/ZAR",
+        "SHA/USD","WINJ26"
+    ];
+
+    // Preencher o menu lateral com botões
+    const sidebar = document.getElementById('sidebar');
+    pairs.forEach(pair => {
+        const btn = document.createElement('button');
+        btn.className = 'btn';
+        btn.innerText = pair;
+        btn.onclick = () => selectPair(pair);
+        sidebar.appendChild(btn);
+    });
+
+    function selectPair(pair){
+        const chart = document.getElementById('chart');
+        chart.innerHTML = `Gráfico em tempo real de <b>${pair}</b>`;
+        // Aqui você pode conectar o gráfico real da Pocket Option
+    }
+
+    // Login simples
+    function login(){
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        // Exemplo de login teste (pode conectar a API real depois)
+        if(username && password){
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('header').style.display = 'flex';
+            document.getElementById('container').style.display = 'flex';
+            document.getElementById('user-display').innerText = username;
+        } else {
+            alert("Digite usuário e senha!");
+        }
+    }
 </script>
+
+</body>
+</html>
